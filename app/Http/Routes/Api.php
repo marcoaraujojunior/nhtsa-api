@@ -12,7 +12,7 @@ class Api extends AbstractRouter
     protected function listVehicles()
     {
         $this->getRouter()->get(
-            '/vehicles/{year}/{manufacturer}/{model}',
+            '/vehicles/{modelYear}/{manufacturer}/{model}',
             'VehiclesController@allByAttributes'
         );
     }

@@ -2,8 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Domain\Model\Vehicle\Vehicle;
+
 class VehiclesController extends Controller
 {
+
+    protected $vehicle;
+
+    public function __construct(Vehicle $vehicle)
+    {
+        $this->vehicle = $vehicle;
+    }
 
      /**
      * Display a listing of the vehicles by Model Year, Manufacturer and Model.
@@ -49,13 +58,15 @@ class VehiclesController extends Controller
      */
     public function allByAttributes($modelYear, $manufacturer, $model)
     {
+        $result = $this->vehicle
+            ->setModelYear($modelYear)
+            ->setManufacturer($manufacturer)
+            ->setModel($model)
+            ->findAll();
+
         return response()->json([
-            'Counts' => 0,
-            'Results' => [
-                $modelYear,
-                $manufacturer,
-                $model,
-            ],
+            'Counts' => count($result),
+            'Results' => $result,
         ]);
     }
 }

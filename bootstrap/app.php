@@ -48,6 +48,18 @@ $app->singleton(
     App\Console\Kernel::class
 );
 
+$app->singleton(
+    GuzzleHttp\Client::class,
+    function ($app) {
+        return new GuzzleHttp\Client(['base_uri' => env('RESOURCE_BASE_URI', null)]);
+    }
+);
+
+$app->bind(
+    App\Domain\Contracts\ManufacturedRecordInterface::class,
+    App\Domain\Service\NhtsaService::class
+);
+
 /*
 |--------------------------------------------------------------------------
 | Register Middleware
