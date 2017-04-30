@@ -52,6 +52,10 @@ class NhtsaService implements ManufacturedRecordInterface
         $body = json_decode($response->getBody(), true);
         $result = [];
 
+        if (empty($result['Results'])) {
+            return $result;
+        }
+
         foreach ($body['Results'] as $itemKey => $item) {
             foreach ($item as $key => $value) {
                 $newKey = str_replace('VehicleDescription', 'Description', $key);
