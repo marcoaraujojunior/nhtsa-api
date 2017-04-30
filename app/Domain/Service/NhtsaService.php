@@ -49,8 +49,17 @@ class NhtsaService implements ManufacturedRecordInterface
 
     protected function formatResult($response)
     {
-        $result = json_decode($response->getBody(), true);
-        return $result['Results'];
+        $body = json_decode($response->getBody(), true);
+        $result = [];
+
+        foreach ($body['Results'] as $itemKey => $item) {
+            foreach ($item as $key => $value) {
+                $newKey = str_replace('VehicleDescription', 'Description', $key);
+                $result[$itemKey][$newKey] = $value;
+            }
+        }
+
+        return $result;
     }
 
     protected function formatRouterParameters(ManufacturedAttributesInterface $routeParameters)

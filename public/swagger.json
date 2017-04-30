@@ -50,10 +50,73 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "List of vehicles"
-                    },
-                    "401": {
-                        "description": "Unauthorized action."
+                        "description": "List of vehicles",
+                        "schema": {
+                            "properties": {
+                                "count": {
+                                    "description": "Display a listing of the vehicles by Model Year, Manufacturer and Model.",
+                                    "type": "integer"
+                                },
+                                "Results": {
+                                    "description": "Display a listing of the vehicles by Model Year, Manufacturer and Model.",
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "Description": {
+                                                "description": "Display a listing of the vehicles by Model Year, Manufacturer and Model.",
+                                                "type": "string"
+                                            },
+                                            "VehicleId": {
+                                                "description": "Display a listing of the vehicles by Model Year, Manufacturer and Model.",
+                                                "type": "integer"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/vehicles": {
+            "post": {
+                "tags": [
+                    "vehicle"
+                ],
+                "summary": "Create vehicle",
+                "description": "Create a vehicle record",
+                "operationId": "create",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Created vehicle object",
+                        "required": true,
+                        "schema": {
+                            "properties": {
+                                "modelYear": {
+                                    "type": "integer"
+                                },
+                                "manufacturer": {
+                                    "type": "string"
+                                },
+                                "model": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "successful operation"
                     }
                 }
             }

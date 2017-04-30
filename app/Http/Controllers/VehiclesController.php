@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Domain\Model\Vehicle\Vehicle;
+use \Illuminate\Http\Request;
 
 class VehiclesController extends Controller
 {
@@ -14,7 +15,7 @@ class VehiclesController extends Controller
         $this->vehicle = $vehicle;
     }
 
-     /**
+    /**
      * Display a listing of the vehicles by Model Year, Manufacturer and Model.
      *
      * @return \Illuminate\Http\JsonResponse
@@ -48,11 +49,29 @@ class VehiclesController extends Controller
      *     ),
      *     @SWG\Response(
      *         response=200,
-     *         description="List of vehicles"
-     *     ),
-     *     @SWG\Response(
-     *         response=401,
-     *         description="Unauthorized action.",
+     *         description="List of vehicles",
+     *         @SWG\Schema(
+     *             type="object",
+     *             @SWG\Property(
+     *                 property="count",
+     *                 type="integer",
+     *             ),
+     *             @SWG\Property(
+     *                 property="Results",
+     *                 type="array",
+     *                 @SWG\Items(
+     *                     type="object",
+     *                     @SWG\Property(
+     *                         property="Description",
+     *                         type="string",
+     *                     ),
+     *                     @SWG\Property(
+     *                         property="VehicleId",
+     *                         type="integer",
+     *                     ),
+     *                 )
+     *             ),
+     *         )
      *     )
      * )
      */
@@ -68,6 +87,47 @@ class VehiclesController extends Controller
             'Counts' => count($result),
             'Results' => $result,
         ]);
+    }
+
+    /**
+     * @SWG\Post(path="/vehicles",
+     *   tags={"vehicle"},
+     *   summary="Create vehicle",
+     *   description="Create a vehicle record",
+     *   operationId="create",
+     *   produces={"application/json"},
+     *   @SWG\Parameter(
+     *     in="body",
+     *     name="body",
+     *     description="Created vehicle object",
+     *     required=true,
+     *     @SWG\Schema(
+     *       type="object",
+     *       @SWG\Property(
+     *          property="modelYear",
+     *          type="integer",
+     *       ),
+     *       @SWG\Property(
+     *          property="manufacturer",
+     *          type="string",
+     *       ),
+     *       @SWG\Property(
+     *          property="model",
+     *          type="string",
+     *       ),
+     *     )
+     *   ),
+     *   @SWG\Response(response="default", description="successful operation")
+     * )
+     */
+    public function create(Request $request)
+    {
+        $data = $request->json()->all();
+        $modelYear = $request->json()->get('modelYear');
+        $manufacturer = $request->json()->get('manufacturer');
+        $model = $request->json()->get('model');
+
+        return $this->allByAttributes($modelYear, $manufacturer, $model);
     }
 }
 
