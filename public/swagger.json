@@ -1,0 +1,81 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Modus Create Challenge API",
+        "contact": {
+            "name": "Marco Araujo",
+            "url": "http://www.marcojunior.com"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost",
+    "basePath": "",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/vehicles/{year}/{manufacturer}/{model}": {
+            "get": {
+                "tags": [
+                    "vehicles"
+                ],
+                "summary": "Display a listing of the vehicles by Model Year, Manufacturer and Model.",
+                "description": "Returns list of vehicles",
+                "operationId": "vehicles.allByAttributes",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "{year}",
+                        "in": "path",
+                        "description": "The model year of vehicle",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "{manufacturer}",
+                        "in": "path",
+                        "description": "The manufacturer of vehicle",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "{model}",
+                        "in": "path",
+                        "description": "The model of vehicle",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of vehicles"
+                    },
+                    "401": {
+                        "description": "Unauthorized action."
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Error": {
+            "required": [
+                "code",
+                "message"
+            ],
+            "properties": {
+                "code": {
+                    "description": "Class Controller",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "message": {
+                    "description": "Class Controller",
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
