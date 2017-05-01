@@ -28,7 +28,7 @@
         ]
     },
     "scripts": {
-        "swagger" : "swagger ./app/Http/ --output public/",
+        "swagger" : "swagger ./app/Http/ --output public/swagger",
         "post-root-package-install": [
             "php -r \"copy('.env.example', '.env');\""
         ]

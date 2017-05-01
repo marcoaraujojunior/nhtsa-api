@@ -4,15 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Domain\Model\Vehicle\Vehicle;
 use \Illuminate\Http\Request;
+use Laravel\Lumen\Http\ResponseFactory;
 
 class VehiclesController extends Controller
 {
 
     protected $vehicle;
+    protected $response;
 
-    public function __construct(Vehicle $vehicle)
+    public function __construct(Vehicle $vehicle, ResponseFactory $response)
     {
         $this->vehicle = $vehicle;
+        $this->response = $response;
     }
 
     /**
@@ -75,18 +78,10 @@ class VehiclesController extends Controller
      *     )
      * )
      */
-    public function allByAttributes($modelYear, $manufacturer, $model)
+    public function allByAttributes($modelYear, $manufacturer, $model, Request $request)
     {
-        $result = $this->vehicle
-            ->setModelYear($modelYear)
-            ->setManufacturer($manufacturer)
-            ->setModel($model)
-            ->findAll();
-
-        return response()->json([
-            'Counts' => count($result),
-            'Results' => $result,
-        ]);
+        $data = $request->all();
+        return $this->doResponse($modelYear, $manufacturer, $model);
     }
 
     /**
@@ -127,7 +122,19 @@ class VehiclesController extends Controller
         $manufacturer = $request->json()->get('manufacturer');
         $model = $request->json()->get('model');
 
-        return $this->allByAttributes($modelYear, $manufacturer, $model);
+        return $this->doResponse($modelYear, $manufacturer, $model, 201);
+    }
+
+    protected function doResponse($modelYear, $manufacturer, $model, $httpStatusCode = 200)
+    {
+        $result = $this->vehicle
+            ->setModelYear($modelYear)
+            ->setManufacturer($manufacturer)
+            ->setModel($model)
+            ->findAll();
+
+        $data = [ 'Counts' => count($result), 'Results' => $result ];
+        return $this->response->json($data, $httpStatusCode);
     }
 }
 

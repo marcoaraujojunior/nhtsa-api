@@ -52,7 +52,7 @@ class NhtsaService implements ManufacturedRecordInterface
         $body = json_decode($response->getBody(), true);
         $result = [];
 
-        if (empty($result['Results'])) {
+        if (empty($body['Results'])) {
             return $result;
         }
 
