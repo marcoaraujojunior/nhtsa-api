@@ -23,6 +23,12 @@ interface ManufacturedAttributesInterface
     public function setModel($model);
 
     /**
+     * @param bool $withRating
+     * @return $this
+     */
+    public function setWithRating($withRating);
+
+    /**
      * @return int
      */
     public function getModelYear();
@@ -36,4 +42,9 @@ interface ManufacturedAttributesInterface
      * @return string
      */
     public function getModel();
+
+    /**
+     * @return bool
+     */
+    public function withRating();
 }

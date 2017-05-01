@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Domain\Model\Vehicle\Vehicle;
 use \Illuminate\Http\Request;
 use Laravel\Lumen\Http\ResponseFactory;
+use Symfony\Component\HttpFoundation\Response as BaseResponse;
+
+use App\Domain\Model\Vehicle\Vehicle;
 
 class VehiclesController extends Controller
 {
@@ -26,29 +28,37 @@ class VehiclesController extends Controller
      * @SWG\Get(
      *     path="/vehicles/{year}/{manufacturer}/{model}",
      *     description="Returns list of vehicles",
-     *     operationId="vehicles.allByAttributes",
+     *     operationId="vehicles.findAllByAttributes",
      *     produces={"application/json"},
      *     tags={"vehicles"},
      *     @SWG\Parameter(
-     *         name="{year}",
+     *         name="year",
      *         in="path",
      *         description="The model year of vehicle",
      *         required=true,
      *         type="integer"
      *     ),
      *     @SWG\Parameter(
-     *         name="{manufacturer}",
+     *         name="manufacturer",
      *         in="path",
      *         description="The manufacturer of vehicle",
      *         required=true,
      *         type="string"
      *     ),
      *     @SWG\Parameter(
-     *         name="{model}",
+     *         name="model",
      *         in="path",
      *         description="The model of vehicle",
      *         required=true,
      *         type="string"
+     *     ),
+     *     @SWG\Parameter(
+     *         name="withRating",
+     *         in="query",
+     *         description="Determines whether show crash rating",
+     *         required=false,
+     *         default=false,
+     *         type="boolean"
      *     ),
      *     @SWG\Response(
      *         response=200,
@@ -66,11 +76,21 @@ class VehiclesController extends Controller
      *                     type="object",
      *                     @SWG\Property(
      *                         property="Description",
+     *                         description="Description of vehicle",
      *                         type="string",
+     *                         example="2015 Audi A3 C FWD"
      *                     ),
      *                     @SWG\Property(
      *                         property="VehicleId",
+     *                         description="Id of vehicle",
      *                         type="integer",
+     *                         example=9406
+     *                     ),
+     *                     @SWG\Property(
+     *                         description="Crash Rating of vehicle (is shown when withRating is true)",
+     *                         property="CrashRating",
+     *                         type="string",
+     *                         example="Not Rated",
      *                     ),
      *                 )
      *             ),
@@ -78,10 +98,10 @@ class VehiclesController extends Controller
      *     )
      * )
      */
-    public function allByAttributes($modelYear, $manufacturer, $model, Request $request)
+    public function findAllByAttributes($modelYear, $manufacturer, $model, Request $request)
     {
-        $data = $request->all();
-        return $this->doResponse($modelYear, $manufacturer, $model);
+        $withRating = filter_var($request->get('withRating'), FILTER_VALIDATE_BOOLEAN);
+        return $this->doResponse($modelYear, $manufacturer, $model, $withRating);
     }
 
     /**
@@ -122,15 +142,16 @@ class VehiclesController extends Controller
         $manufacturer = $request->json()->get('manufacturer');
         $model = $request->json()->get('model');
 
-        return $this->doResponse($modelYear, $manufacturer, $model, 201);
+        return $this->doResponse($modelYear, $manufacturer, $model, false, BaseResponse::HTTP_CREATED);
     }
 
-    protected function doResponse($modelYear, $manufacturer, $model, $httpStatusCode = 200)
+    protected function doResponse($modelYear, $manufacturer, $model, $withRating, $httpStatusCode = BaseResponse::HTTP_OK)
     {
         $result = $this->vehicle
             ->setModelYear($modelYear)
             ->setManufacturer($manufacturer)
             ->setModel($model)
+            ->setWithRating($withRating)
             ->findAll();
 
         $data = [ 'Counts' => count($result), 'Results' => $result ];

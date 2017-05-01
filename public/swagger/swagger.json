@@ -21,31 +21,39 @@
                 ],
                 "summary": "Display a listing of the vehicles by Model Year, Manufacturer and Model.",
                 "description": "Returns list of vehicles",
-                "operationId": "vehicles.allByAttributes",
+                "operationId": "vehicles.findAllByAttributes",
                 "produces": [
                     "application/json"
                 ],
                 "parameters": [
                     {
-                        "name": "{year}",
+                        "name": "year",
                         "in": "path",
                         "description": "The model year of vehicle",
                         "required": true,
                         "type": "integer"
                     },
                     {
-                        "name": "{manufacturer}",
+                        "name": "manufacturer",
                         "in": "path",
                         "description": "The manufacturer of vehicle",
                         "required": true,
                         "type": "string"
                     },
                     {
-                        "name": "{model}",
+                        "name": "model",
                         "in": "path",
                         "description": "The model of vehicle",
                         "required": true,
                         "type": "string"
+                    },
+                    {
+                        "name": "withRating",
+                        "in": "query",
+                        "description": "Determines whether show crash rating",
+                        "required": false,
+                        "type": "boolean",
+                        "default": false
                     }
                 ],
                 "responses": {
@@ -63,12 +71,19 @@
                                     "items": {
                                         "properties": {
                                             "Description": {
-                                                "description": "Display a listing of the vehicles by Model Year, Manufacturer and Model.",
-                                                "type": "string"
+                                                "description": "Description of vehicle",
+                                                "type": "string",
+                                                "example": "2015 Audi A3 C FWD"
                                             },
                                             "VehicleId": {
-                                                "description": "Display a listing of the vehicles by Model Year, Manufacturer and Model.",
-                                                "type": "integer"
+                                                "description": "Id of vehicle",
+                                                "type": "integer",
+                                                "example": 9406
+                                            },
+                                            "CrashRating": {
+                                                "description": "Crash Rating of vehicle (is shown when withRating is true)",
+                                                "type": "string",
+                                                "example": "Not Rated"
                                             }
                                         },
                                         "type": "object"

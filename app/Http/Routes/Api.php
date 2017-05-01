@@ -14,7 +14,7 @@ class Api extends AbstractRouter
     {
         $this->getRouter()->get(
             '/vehicles/{modelYear}/{manufacturer}/{model}',
-            'VehiclesController@allByAttributes'
+            'VehiclesController@findAllByAttributes'
         );
     }
 

@@ -3,6 +3,8 @@
 namespace App\Domain\Service;
 
 use GuzzleHttp\Client;
+use Symfony\Component\HttpFoundation\Response as BaseResponse;
+
 use App\Domain\Contracts\ManufacturedRecordInterface;
 use App\Domain\Contracts\ManufacturedAttributesInterface;
 
@@ -40,21 +42,61 @@ class NhtsaService implements ManufacturedRecordInterface
             return [];
         }
 
-        if ($response->getStatusCode() != 200) {
+        if (!$this->isValidResponse($response)){
             return [];
         }
 
-        return $this->formatResult($response);
+        $result = $this->formatResult($response);
+        if (!$routeParameters->withRating()) {
+            return $result;
+        }
+
+        return $this->addRating($result);
+    }
+
+    protected function catchRatingByVehicleId($id)
+    {
+        try {
+            $response = $this->getClient()->request(
+                'GET',
+                'VehicleId/' . $id,
+                $this->getQuery()
+            );
+        } catch (\Exception $e) {
+            return '';
+        }
+
+        if (!$this->isValidResponse($response)){
+            return '';
+        }
+        $body = json_decode($response->getBody(), true);
+
+        return reset($body['Results'])['OverallRating'];
+    }
+
+    protected function addRating($result)
+    {
+        $newData = [];
+        foreach ($result as $item) {
+            $item['CrashRating'] = $this->catchRatingByVehicleId($item['VehicleId']);
+            $newData[] = $item;
+        }
+        return $newData;
+    }
+
+    protected function isValidResponse($response)
+    {
+        if ($response->getStatusCode() != BaseResponse::HTTP_OK) {
+            return false;
+        }
+        $body = json_decode($response->getBody(), true);
+        return !empty($body['Results']);
     }
 
     protected function formatResult($response)
     {
         $body = json_decode($response->getBody(), true);
         $result = [];
-
-        if (empty($body['Results'])) {
-            return $result;
-        }
 
         foreach ($body['Results'] as $itemKey => $item) {
             foreach ($item as $key => $value) {

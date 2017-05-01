@@ -29,6 +29,8 @@
     },
     "scripts": {
         "swagger" : "swagger ./app/Http/ --output public/swagger",
+        "test" : "phpunit",
+        "coverage" : "phpunit --coverage-html ./public/report",
         "post-root-package-install": [
             "php -r \"copy('.env.example', '.env');\""
         ]

@@ -18,7 +18,7 @@ abstract class AbstractRouter
     public function register()
     {
         $this->router->group(
-            $this->options,
+            $this->getOptions(),
             function () { $this->routes(); }
         );
     }
@@ -29,7 +29,7 @@ abstract class AbstractRouter
         return $this;
     }
 
-    public function getOptiosn()
+    public function getOptions()
     {
         return $this->options;
     }

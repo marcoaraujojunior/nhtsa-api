@@ -10,6 +10,7 @@ class Vehicle implements ManufacturedAttributesInterface
     protected $modelYear = 0;
     protected $manufacturer = '';
     protected $model = '';
+    protected $withRating = false;
     protected $record;
 
     public function __construct(ManufacturedRecordInterface $record)
@@ -53,6 +54,16 @@ class Vehicle implements ManufacturedAttributesInterface
     }
 
     /**
+     * @param bool $withRating
+     * @return $this
+     */
+    public function setWithRating($withRating)
+    {
+        $this->withRating = $withRating;
+        return $this;
+    }
+
+    /**
      * @return int
      */
     public function getModelYear()
@@ -74,6 +85,14 @@ class Vehicle implements ManufacturedAttributesInterface
     public function getModel()
     {
         return $this->model;
+    }
+
+    /**
+     * @return bool
+     */
+    public function withRating()
+    {
+        return $this->withRating;
     }
 }
 
