@@ -67,8 +67,8 @@ $app->bind(
 );
 
 $app->bind(
-    App\Domain\Contracts\ManufacturedAttributesInterface::class,
-    App\Domain\Shared\Vehicle::class
+    App\Domain\Contracts\ManufacturedRequestedAttributesInterface::class,
+    App\Http\Requests\VehicleRequest::class
 );
 
 $app->bind(

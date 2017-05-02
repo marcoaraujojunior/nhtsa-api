@@ -6,7 +6,7 @@ use GuzzleHttp\Client;
 use Symfony\Component\HttpFoundation\Response as BaseResponse;
 
 use App\Domain\Contracts\ManufacturedRecordInterface;
-use App\Domain\Contracts\ManufacturedAttributesInterface;
+use App\Domain\Contracts\ManufacturedRequestedAttributesInterface;
 
 class NhtsaService implements ManufacturedRecordInterface
 {
@@ -30,7 +30,7 @@ class NhtsaService implements ManufacturedRecordInterface
         return $this->query;
     }
 
-    public function findByAttributes(ManufacturedAttributesInterface $routeParameters)
+    public function findByAttributes(ManufacturedRequestedAttributesInterface $routeParameters)
     {
         try {
             $response = $this->getClient()->request(
@@ -108,7 +108,7 @@ class NhtsaService implements ManufacturedRecordInterface
         return $result;
     }
 
-    protected function formatRouterParameters(ManufacturedAttributesInterface $routeParameters)
+    protected function formatRouterParameters(ManufacturedRequestedAttributesInterface $routeParameters)
     {
         return implode(
             '/',

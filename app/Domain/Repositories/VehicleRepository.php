@@ -3,7 +3,7 @@
 namespace App\Domain\Repositories;
 
 use App\Domain\Contracts\ManufacturedRecordInterface;
-use App\Domain\Contracts\ManufacturedAttributesInterface;
+use App\Domain\Contracts\ManufacturedRequestedAttributesInterface;
 use App\Domain\Contracts\ManufacturedRepositoryInterface;
 
 class VehicleRepository implements ManufacturedRepositoryInterface
@@ -15,7 +15,7 @@ class VehicleRepository implements ManufacturedRepositoryInterface
         $this->record = $record;
     }
 
-    public function findAll(ManufacturedAttributesInterface $vehicle)
+    public function findAll(ManufacturedRequestedAttributesInterface $vehicle)
     {
         return $this->record->findByAttributes($vehicle);
     }

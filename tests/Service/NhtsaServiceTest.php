@@ -12,7 +12,7 @@ use GuzzleHttp\Exception\RequestException;
 use Symfony\Component\HttpFoundation\Response as BaseResponse;
 
 use App\Infrastructure\Service\NhtsaService;
-use App\Domain\Contracts\ManufacturedAttributesInterface;
+use App\Domain\Contracts\ManufacturedRequestedAttributesInterface;
 
 class NhsaServiceTest extends \TestCase
 {
@@ -27,7 +27,7 @@ class NhsaServiceTest extends \TestCase
 
         $service = new NhtsaService($client);
 
-        $vehicle = Mockery::mock('App\Domain\Contracts\ManufacturedAttributesInterface');
+        $vehicle = Mockery::mock('App\Domain\Contracts\ManufacturedRequestedAttributesInterface');
         $vehicle->shouldReceive('getModelYear')->andReturn(2015)->mock();
         $vehicle->shouldReceive('getManufacturer')->andReturn('Audi')->mock();
         $vehicle->shouldReceive('getModel')->andReturn('A3')->mock();
@@ -60,7 +60,7 @@ class NhsaServiceTest extends \TestCase
 
         $service = new NhtsaService($client);
 
-        $vehicle = Mockery::mock('App\Domain\Contracts\ManufacturedAttributesInterface');
+        $vehicle = Mockery::mock('App\Domain\Contracts\ManufacturedRequestedAttributesInterface');
         $vehicle->shouldReceive('getModelYear')->andReturn(2015)->mock();
         $vehicle->shouldReceive('getManufacturer')->andReturn('Audi')->mock();
         $vehicle->shouldReceive('getModel')->andReturn('A3')->mock();
@@ -93,7 +93,7 @@ class NhsaServiceTest extends \TestCase
 
         $service = new NhtsaService($client);
 
-        $vehicle = Mockery::mock('App\Domain\Contracts\ManufacturedAttributesInterface');
+        $vehicle = Mockery::mock('App\Domain\Contracts\ManufacturedRequestedAttributesInterface');
         $vehicle->shouldReceive('getModelYear')->andReturn(2015)->mock();
         $vehicle->shouldReceive('getManufacturer')->andReturn('Audi')->mock();
         $vehicle->shouldReceive('getModel')->andReturn('A3')->mock();
@@ -126,7 +126,7 @@ class NhsaServiceTest extends \TestCase
 
         $service = new NhtsaService($client);
 
-        $vehicle = Mockery::mock('App\Domain\Contracts\ManufacturedAttributesInterface');
+        $vehicle = Mockery::mock('App\Domain\Contracts\ManufacturedRequestedAttributesInterface');
         $vehicle->shouldReceive('getModelYear')->andReturn(2015)->mock();
         $vehicle->shouldReceive('getManufacturer')->andReturn('Audi')->mock();
         $vehicle->shouldReceive('getModel')->andReturn('A3')->mock();
@@ -155,7 +155,7 @@ class NhsaServiceTest extends \TestCase
 
         $service = new NhtsaService($client);
 
-        $vehicle = Mockery::mock('App\Domain\Contracts\ManufacturedAttributesInterface');
+        $vehicle = Mockery::mock('App\Domain\Contracts\ManufacturedRequestedAttributesInterface');
         $vehicle->shouldReceive('getModelYear')->andReturn(2015)->mock();
         $vehicle->shouldReceive('getManufacturer')->andReturn('Audi')->mock();
         $vehicle->shouldReceive('getModel')->andReturn('A3')->mock();
@@ -177,7 +177,7 @@ class NhsaServiceTest extends \TestCase
 
         $service = new NhtsaService($client);
 
-        $vehicle = Mockery::mock('App\Domain\Contracts\ManufacturedAttributesInterface');
+        $vehicle = Mockery::mock('App\Domain\Contracts\ManufacturedRequestedAttributesInterface');
         $vehicle->shouldReceive('getModelYear')->andReturn(2015)->mock();
         $vehicle->shouldReceive('getManufacturer')->andReturn('Audi')->mock();
         $vehicle->shouldReceive('getModel')->andReturn('A3')->mock();
@@ -199,7 +199,7 @@ class NhsaServiceTest extends \TestCase
 
         $service = new NhtsaService($client);
 
-        $vehicle = Mockery::mock('App\Domain\Contracts\ManufacturedAttributesInterface');
+        $vehicle = Mockery::mock('App\Domain\Contracts\ManufacturedRequestedAttributesInterface');
         $vehicle->shouldReceive('getModelYear')->andReturn(2015)->mock();
         $vehicle->shouldReceive('getManufacturer')->andReturn('Audi')->mock();
         $vehicle->shouldReceive('getModel')->andReturn('A3')->mock();

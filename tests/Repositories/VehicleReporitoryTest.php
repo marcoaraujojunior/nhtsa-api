@@ -6,7 +6,7 @@ use \Mockery;
 
 use App\Domain\Repositories\VehicleRepository;
 use App\Domain\Contracts\ManufacturedRecordInterface;
-use App\Domain\Contracts\ManufacturedAttributesInterface;
+use App\Domain\Contracts\ManufacturedRequestedAttributesInterface;
 
 class VehicleRepositoryTest extends \TestCase
 {
@@ -16,7 +16,7 @@ class VehicleRepositoryTest extends \TestCase
         $record = Mockery::mock('App\Domain\Contracts\ManufacturedRecordInterface');
         $record->shouldReceive('findByAttributes')->andReturn(['the' => 'same'])->mock();
 
-        $vehicle = Mockery::mock('App\Domain\Contracts\ManufacturedAttributesInterface');
+        $vehicle = Mockery::mock('App\Domain\Contracts\ManufacturedRequestedAttributesInterface');
 
         $repostory = new VehicleRepository($record);
         $this->assertEquals(

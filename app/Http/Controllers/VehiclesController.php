@@ -7,7 +7,7 @@ use Laravel\Lumen\Http\ResponseFactory;
 use Symfony\Component\HttpFoundation\Response as BaseResponse;
 
 use App\Domain\Contracts\ManufacturedRepositoryInterface as Repository;
-use App\Domain\Contracts\ManufacturedAttributesInterface as Manufactured;
+use App\Domain\Contracts\ManufacturedRequestedAttributesInterface as Manufactured;
 
 class VehiclesController extends Controller
 {
@@ -151,8 +151,13 @@ class VehiclesController extends Controller
 
     protected function doResponse($modelYear, $manufacturer, $model, $withRating, $httpStatusCode = BaseResponse::HTTP_OK)
     {
-        $vehicle = $this->vehicle->newInstance($modelYear, $manufacturer, $model, $withRating);
-        $result = $this->repository->findAll($vehicle);
+        $this->vehicle
+            ->setModelYear($modelYear)
+            ->setManufacturer($manufacturer)
+            ->setModel($model)
+            ->setWithRating($withRating);
+
+        $result = $this->repository->findAll($this->vehicle);
 
         $data = [ 'Counts' => count($result), 'Results' => $result ];
         return $this->response->json($data, $httpStatusCode);
