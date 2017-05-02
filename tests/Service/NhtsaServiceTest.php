@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Test;
+namespace App\Test\Service;
 
 use \Mockery;
 use GuzzleHttp\Client;

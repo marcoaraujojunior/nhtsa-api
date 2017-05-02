@@ -5,30 +5,6 @@ namespace App\Domain\Contracts;
 interface ManufacturedAttributesInterface
 {
     /**
-     * @param int $year
-     * @return $this
-     */
-    public function setModelYear($modelYear);
-
-    /**
-     * @param string $manufacturer
-     * @return $this
-     */
-    public function setManufacturer($manufacturer);
-
-    /**
-     * @param string $model
-     * @return $this
-     */
-    public function setModel($model);
-
-    /**
-     * @param bool $withRating
-     * @return $this
-     */
-    public function setWithRating($withRating);
-
-    /**
      * @return int
      */
     public function getModelYear();
@@ -47,4 +23,10 @@ interface ManufacturedAttributesInterface
      * @return bool
      */
     public function withRating();
+
+    /**
+     * @return ManufacturedAttributesInterface
+     */
+    public function newInstance($modelYear, $manufacturer, $model, $withRating = false);
 }
+

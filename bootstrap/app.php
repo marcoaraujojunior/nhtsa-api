@@ -12,7 +12,7 @@ try {
  * Because swagger use constatnt
  */
 
-define ('API_HOST', env('API_HOST'));
+defined('API_HOST') or define('API_HOST', env('API_HOST'));
 
 /*
 |--------------------------------------------------------------------------
@@ -68,7 +68,12 @@ $app->bind(
 
 $app->bind(
     App\Domain\Contracts\ManufacturedAttributesInterface::class,
-    App\Domain\Model\Vehicle\Vehicle::class
+    App\Domain\Shared\Vehicle::class
+);
+
+$app->bind(
+    App\Domain\Contracts\ManufacturedRepositoryInterface::class,
+    App\Domain\Repositories\VehicleRepository::class
 );
 
 /*

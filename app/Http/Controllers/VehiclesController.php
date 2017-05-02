@@ -6,17 +6,20 @@ use \Illuminate\Http\Request;
 use Laravel\Lumen\Http\ResponseFactory;
 use Symfony\Component\HttpFoundation\Response as BaseResponse;
 
-use App\Domain\Contracts\ManufacturedAttributesInterface;
+use App\Domain\Contracts\ManufacturedRepositoryInterface as Repository;
+use App\Domain\Contracts\ManufacturedAttributesInterface as Manufactured;
 
 class VehiclesController extends Controller
 {
 
     protected $vehicle;
+    protected $repository;
     protected $response;
 
-    public function __construct(ManufacturedAttributesInterface $vehicle, ResponseFactory $response)
+    public function __construct(Manufactured $vehicle, Repository $repository, ResponseFactory $response)
     {
         $this->vehicle = $vehicle;
+        $this->repository = $repository;
         $this->response = $response;
     }
 
@@ -148,12 +151,8 @@ class VehiclesController extends Controller
 
     protected function doResponse($modelYear, $manufacturer, $model, $withRating, $httpStatusCode = BaseResponse::HTTP_OK)
     {
-        $result = $this->vehicle
-            ->setModelYear($modelYear)
-            ->setManufacturer($manufacturer)
-            ->setModel($model)
-            ->setWithRating($withRating)
-            ->findAll();
+        $vehicle = $this->vehicle->newInstance($modelYear, $manufacturer, $model, $withRating);
+        $result = $this->repository->findAll($vehicle);
 
         $data = [ 'Counts' => count($result), 'Results' => $result ];
         return $this->response->json($data, $httpStatusCode);
