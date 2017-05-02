@@ -9,6 +9,12 @@ try {
 }
 
 /*
+ * Because swagger use constatnt
+ */
+
+define ('API_HOST', env('API_HOST'));
+
+/*
 |--------------------------------------------------------------------------
 | Create The Application
 |--------------------------------------------------------------------------
@@ -58,6 +64,11 @@ $app->singleton(
 $app->bind(
     App\Domain\Contracts\ManufacturedRecordInterface::class,
     App\Domain\Service\NhtsaService::class
+);
+
+$app->bind(
+    App\Domain\Contracts\ManufacturedAttributesInterface::class,
+    App\Domain\Model\Vehicle\Vehicle::class
 );
 
 /*

@@ -11,11 +11,11 @@ use Laravel\Lumen\Routing\Controller as BaseController;
  *
  * @SWG\Swagger(
  *     basePath="",
- *     host="localhost",
+ *     host=API_HOST,
  *     schemes={"http"},
  *     @SWG\Info(
  *         version="1.0",
- *         title="Modus Create Challenge API",
+ *         title="NHTSA API",
  *         @SWG\Contact(name="Marco Araujo", url="http://www.marcojunior.com"),
  *     ),
  *     @SWG\Definition(

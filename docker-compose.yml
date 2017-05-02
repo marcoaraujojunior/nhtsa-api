@@ -1,8 +1,8 @@
 version: '2'
 services:
-    php:
+    nhtsa-api:
         image: webdevops/php-apache-dev:alpine-php7
-        container_name: php
+        container_name: nhtsa-api
         restart: always
         env_file: .env
         ports:

@@ -6,7 +6,7 @@ use \Illuminate\Http\Request;
 use Laravel\Lumen\Http\ResponseFactory;
 use Symfony\Component\HttpFoundation\Response as BaseResponse;
 
-use App\Domain\Model\Vehicle\Vehicle;
+use App\Domain\Contracts\ManufacturedAttributesInterface;
 
 class VehiclesController extends Controller
 {
@@ -14,7 +14,7 @@ class VehiclesController extends Controller
     protected $vehicle;
     protected $response;
 
-    public function __construct(Vehicle $vehicle, ResponseFactory $response)
+    public function __construct(ManufacturedAttributesInterface $vehicle, ResponseFactory $response)
     {
         $this->vehicle = $vehicle;
         $this->response = $response;
@@ -66,8 +66,10 @@ class VehiclesController extends Controller
      *         @SWG\Schema(
      *             type="object",
      *             @SWG\Property(
-     *                 property="count",
+     *                 property="Counts",
      *                 type="integer",
+     *                 example=1,
+     *                 description="Total results"
      *             ),
      *             @SWG\Property(
      *                 property="Results",
@@ -137,7 +139,6 @@ class VehiclesController extends Controller
      */
     public function create(Request $request)
     {
-        $data = $request->json()->all();
         $modelYear = $request->json()->get('modelYear');
         $manufacturer = $request->json()->get('manufacturer');
         $model = $request->json()->get('model');

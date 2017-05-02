@@ -6,4 +6,5 @@ Homestead.yaml
 .DS_Store
 *.sw*
 public/report/**
+tags
 
