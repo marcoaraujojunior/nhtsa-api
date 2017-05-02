@@ -11,7 +11,7 @@ use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Exception\RequestException;
 use Symfony\Component\HttpFoundation\Response as BaseResponse;
 
-use App\Domain\Service\NhtsaService;
+use App\Infrastructure\Service\NhtsaService;
 use App\Domain\Contracts\ManufacturedAttributesInterface;
 
 class NhsaServiceTest extends \TestCase

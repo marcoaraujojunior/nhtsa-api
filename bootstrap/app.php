@@ -63,7 +63,7 @@ $app->singleton(
 
 $app->bind(
     App\Domain\Contracts\ManufacturedRecordInterface::class,
-    App\Domain\Service\NhtsaService::class
+    App\Infrastructure\Service\NhtsaService::class
 );
 
 $app->bind(

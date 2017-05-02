@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Service;
+namespace App\Infrastructure\Service;
 
 use GuzzleHttp\Client;
 use Symfony\Component\HttpFoundation\Response as BaseResponse;
