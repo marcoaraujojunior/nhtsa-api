@@ -47,7 +47,7 @@ class NhtsaService implements ManufacturedRecordInterface
         }
 
         $result = $this->formatResult($response);
-        if (!$routeParameters->withRating()) {
+        if (!$routeParameters->isClassifiable()) {
             return $result;
         }
 

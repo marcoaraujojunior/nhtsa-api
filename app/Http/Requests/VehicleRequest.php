@@ -3,14 +3,13 @@
 namespace App\Http\Requests;
 
 use App\Domain\Contracts\ManufacturedAttributesInterface;
-use App\Domain\Contracts\ClassifierInterface;
 
-class VehicleRequest implements ManufacturedAttributesInterface, ClassifierInterface
+class VehicleRequest implements ManufacturedAttributesInterface
 {
     protected $modelYear = 0;
     protected $manufacturer = '';
     protected $model = '';
-    protected $withRating = false;
+    protected $isClassifiable = false;
 
     /**
      * @param int $year
@@ -43,12 +42,12 @@ class VehicleRequest implements ManufacturedAttributesInterface, ClassifierInter
     }
 
     /**
-     * @param bool $withRating
+     * @param bool $isClassifiable
      * @return $this
      */
-    public function setWithRating($withRating)
+    public function setClassifiable($isClassifiable)
     {
-        $this->withRating = $withRating;
+        $this->isClassifiable = $isClassifiable;
         return $this;
     }
 
@@ -79,9 +78,9 @@ class VehicleRequest implements ManufacturedAttributesInterface, ClassifierInter
     /**
      * @return bool
      */
-    public function withRating()
+    public function isClassifiable()
     {
-        return $this->withRating;
+        return $this->isClassifiable;
     }
 }
 

@@ -31,7 +31,7 @@ class NhsaServiceTest extends \TestCase
         $vehicle->shouldReceive('getModelYear')->andReturn(2015)->mock();
         $vehicle->shouldReceive('getManufacturer')->andReturn('Audi')->mock();
         $vehicle->shouldReceive('getModel')->andReturn('A3')->mock();
-        $vehicle->shouldReceive('withRating')->andReturn(false)->mock();
+        $vehicle->shouldReceive('isClassifiable')->andReturn(false)->mock();
 
         $expected = [
             [ 'Description' => '2015 Audi A3 4 DR AWD', 'VehicleId' => 9403 ],
@@ -64,7 +64,7 @@ class NhsaServiceTest extends \TestCase
         $vehicle->shouldReceive('getModelYear')->andReturn(2015)->mock();
         $vehicle->shouldReceive('getManufacturer')->andReturn('Audi')->mock();
         $vehicle->shouldReceive('getModel')->andReturn('A3')->mock();
-        $vehicle->shouldReceive('withRating')->andReturn(true)->mock();
+        $vehicle->shouldReceive('isClassifiable')->andReturn(true)->mock();
 
         $expected = [
             [ 'Description' => '2015 Audi A3 4 DR AWD', 'VehicleId' => 9403, 'CrashRating' => '5' ],
@@ -97,7 +97,7 @@ class NhsaServiceTest extends \TestCase
         $vehicle->shouldReceive('getModelYear')->andReturn(2015)->mock();
         $vehicle->shouldReceive('getManufacturer')->andReturn('Audi')->mock();
         $vehicle->shouldReceive('getModel')->andReturn('A3')->mock();
-        $vehicle->shouldReceive('withRating')->andReturn(true)->mock();
+        $vehicle->shouldReceive('isClassifiable')->andReturn(true)->mock();
 
         $expected = [
             [ 'Description' => '2015 Audi A3 4 DR AWD', 'VehicleId' => 9403, 'CrashRating' => '' ],
@@ -130,7 +130,7 @@ class NhsaServiceTest extends \TestCase
         $vehicle->shouldReceive('getModelYear')->andReturn(2015)->mock();
         $vehicle->shouldReceive('getManufacturer')->andReturn('Audi')->mock();
         $vehicle->shouldReceive('getModel')->andReturn('A3')->mock();
-        $vehicle->shouldReceive('withRating')->andReturn(true)->mock();
+        $vehicle->shouldReceive('isClassifiable')->andReturn(true)->mock();
 
         $expected = [
             [ 'Description' => '2015 Audi A3 4 DR AWD', 'VehicleId' => 9403, 'CrashRating' => '' ],
@@ -159,7 +159,7 @@ class NhsaServiceTest extends \TestCase
         $vehicle->shouldReceive('getModelYear')->andReturn(2015)->mock();
         $vehicle->shouldReceive('getManufacturer')->andReturn('Audi')->mock();
         $vehicle->shouldReceive('getModel')->andReturn('A3')->mock();
-        $vehicle->shouldReceive('withRating')->andReturn(false)->mock();
+        $vehicle->shouldReceive('isClassifiable')->andReturn(false)->mock();
 
         $this->assertEquals(
             [], $service->findByAttributes($vehicle)
@@ -181,7 +181,7 @@ class NhsaServiceTest extends \TestCase
         $vehicle->shouldReceive('getModelYear')->andReturn(2015)->mock();
         $vehicle->shouldReceive('getManufacturer')->andReturn('Audi')->mock();
         $vehicle->shouldReceive('getModel')->andReturn('A3')->mock();
-        $vehicle->shouldReceive('withRating')->andReturn(false)->mock();
+        $vehicle->shouldReceive('isClassifiable')->andReturn(false)->mock();
 
         $this->assertEquals(
             [], $service->findByAttributes($vehicle)
@@ -203,7 +203,7 @@ class NhsaServiceTest extends \TestCase
         $vehicle->shouldReceive('getModelYear')->andReturn(2015)->mock();
         $vehicle->shouldReceive('getManufacturer')->andReturn('Audi')->mock();
         $vehicle->shouldReceive('getModel')->andReturn('A3')->mock();
-        $vehicle->shouldReceive('withRating')->andReturn(false)->mock();
+        $vehicle->shouldReceive('isClassifiable')->andReturn(false)->mock();
 
         $this->assertEquals(
             [], $service->findByAttributes($vehicle)

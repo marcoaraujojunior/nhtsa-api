@@ -105,8 +105,8 @@ class VehiclesController extends Controller
      */
     public function findAllByAttributes($modelYear, $manufacturer, $model, Request $request)
     {
-        $withRating = filter_var($request->get('withRating'), FILTER_VALIDATE_BOOLEAN);
-        return $this->doResponse($modelYear, $manufacturer, $model, $withRating);
+        $isClassifiable = filter_var($request->get('withRating'), FILTER_VALIDATE_BOOLEAN);
+        return $this->doResponse($modelYear, $manufacturer, $model, $isClassifiable);
     }
 
     /**
@@ -149,13 +149,13 @@ class VehiclesController extends Controller
         return $this->doResponse($modelYear, $manufacturer, $model, false, BaseResponse::HTTP_CREATED);
     }
 
-    protected function doResponse($modelYear, $manufacturer, $model, $withRating, $httpStatusCode = BaseResponse::HTTP_OK)
+    protected function doResponse($modelYear, $manufacturer, $model, $isClassifiable, $httpStatusCode = BaseResponse::HTTP_OK)
     {
         $this->vehicle
             ->setModelYear($modelYear)
             ->setManufacturer($manufacturer)
             ->setModel($model)
-            ->setWithRating($withRating);
+            ->setClassifiable($isClassifiable);
 
         $result = $this->repository->findAll($this->vehicle);
 
