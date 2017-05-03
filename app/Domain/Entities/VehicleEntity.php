@@ -1,15 +1,26 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Domain\Entities;
 
-use App\Domain\Contracts\ManufacturableAttributesInterface;
+use App\Domain\Contracts\ManufacturableInterface;
 
-class VehicleRequest implements ManufacturableAttributesInterface
+class VehicleEntity implements ManufacturableInterface
 {
     protected $modelYear = 0;
     protected $manufacturer = '';
     protected $model = '';
     protected $isClassifiable = false;
+    protected $rating;
+    protected $id;
+    protected $description;
+
+    /*
+     * @return VehicleEntity
+     */
+    public function newInstance()
+    {
+        return new self;
+    }
 
     /**
      * @param int $year
@@ -49,6 +60,60 @@ class VehicleRequest implements ManufacturableAttributesInterface
     {
         $this->isClassifiable = $isClassifiable;
         return $this;
+    }
+
+    /*
+     * @param string $rating
+     * @return $this
+     */
+    public function setRating($rating)
+    {
+        $this->rating = $rating;
+        return $this;
+    }
+
+    /**
+     * @param int $id
+     * @return $this
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @param string $description
+     * @return $this
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /*
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /*
+     * @return string
+     */
+    public function getRating()
+    {
+        return $this->rating;
     }
 
     /**

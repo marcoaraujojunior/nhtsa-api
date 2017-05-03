@@ -14,8 +14,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 use App\Domain\Service\NhtsaService;
 use App\Domain\Model\Vehicle\Vehicle;
-use App\Domain\Contracts\ManufacturedAttributesInterface;
-use App\Domain\Contracts\ManufacturedRecordInterface;
+use App\Domain\Contracts\ManufacturableAttributesInterface;
+use App\Domain\Contracts\ManufacturableRecordInterface;
 
 class VehicleControllerTest extends \TestCase
 {

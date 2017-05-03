@@ -2,7 +2,7 @@
 
 namespace App\Domain\Contracts;
 
-interface ManufacturedAttributesInterface extends ClassifiableInterface
+interface ManufacturableAttributesInterface extends ClassifiableInterface
 {
     /**
      * @param int $year

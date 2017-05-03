@@ -28,7 +28,7 @@
         ]
     },
     "scripts": {
-        "swagger" : "swagger ./app/Http/ --output public/swagger",
+        "swagger" : "swagger ./app/Http/ --output public/swagger --bootstrap bootstrap/app.php",
         "test" : "phpunit",
         "coverage" : "phpunit --coverage-html ./public/report",
         "post-root-package-install": [

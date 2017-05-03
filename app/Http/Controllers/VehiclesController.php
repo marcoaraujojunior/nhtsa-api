@@ -6,8 +6,9 @@ use \Illuminate\Http\Request;
 use Laravel\Lumen\Http\ResponseFactory;
 use Symfony\Component\HttpFoundation\Response as BaseResponse;
 
-use App\Domain\Contracts\ManufacturedRepositoryInterface as Repository;
-use App\Domain\Contracts\ManufacturedAttributesInterface as Manufactured;
+use App\Domain\Contracts\ManufacturableRepositoryInterface as Repository;
+use App\Domain\Contracts\ManufacturableAttributesInterface as Manufacturable;
+use App\Http\Responses\VehicleResponse;
 
 class VehiclesController extends Controller
 {
@@ -15,12 +16,19 @@ class VehiclesController extends Controller
     protected $vehicle;
     protected $repository;
     protected $response;
+    protected $vehicleResponse;
 
-    public function __construct(Manufactured $vehicle, Repository $repository, ResponseFactory $response)
+    public function __construct(
+        Manufacturable $vehicle,
+        Repository $repository,
+        ResponseFactory $response,
+        VehicleResponse $vehicleResponse
+    )
     {
         $this->vehicle = $vehicle;
         $this->repository = $repository;
         $this->response = $response;
+        $this->vehicleResponse = $vehicleResponse;
     }
 
     /**
@@ -158,8 +166,8 @@ class VehiclesController extends Controller
             ->setClassifiable($isClassifiable);
 
         $result = $this->repository->findAll($this->vehicle);
+        $data = $this->vehicleResponse->format($result);
 
-        $data = [ 'Counts' => count($result), 'Results' => $result ];
         return $this->response->json($data, $httpStatusCode);
     }
 }

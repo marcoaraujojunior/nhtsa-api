@@ -62,18 +62,28 @@ $app->singleton(
 );
 
 $app->bind(
-    App\Domain\Contracts\ManufacturedRecordInterface::class,
+    App\Domain\Contracts\ManufacturableRecordInterface::class,
     App\Infrastructure\Service\NhtsaService::class
 );
 
 $app->bind(
-    App\Domain\Contracts\ManufacturedAttributesInterface::class,
+    App\Domain\Contracts\ManufacturableAttributesInterface::class,
     App\Http\Requests\VehicleRequest::class
 );
 
 $app->bind(
-    App\Domain\Contracts\ManufacturedRepositoryInterface::class,
+    App\Domain\Contracts\ManufacturableRepositoryInterface::class,
     App\Domain\Repositories\VehicleRepository::class
+);
+
+$app->bind(
+    App\Domain\Contracts\ManufacturableServiceAdapterInterface::class,
+    App\Infrastructure\Adapters\NhtsaServiceAdapter::class
+);
+
+$app->bind(
+    App\Domain\Contracts\ManufacturableInterface::class,
+    App\Domain\Entities\VehicleEntity::class
 );
 
 /*

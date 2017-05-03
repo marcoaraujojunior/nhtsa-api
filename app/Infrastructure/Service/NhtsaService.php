@@ -5,10 +5,10 @@ namespace App\Infrastructure\Service;
 use GuzzleHttp\Client;
 use Symfony\Component\HttpFoundation\Response as BaseResponse;
 
-use App\Domain\Contracts\ManufacturedRecordInterface;
-use App\Domain\Contracts\ManufacturedAttributesInterface;
+use App\Domain\Contracts\ManufacturableRecordInterface;
+use App\Domain\Contracts\ManufacturableAttributesInterface;
 
-class NhtsaService implements ManufacturedRecordInterface
+class NhtsaService implements ManufacturableRecordInterface
 {
     protected $client;
     protected $query = [
@@ -30,12 +30,12 @@ class NhtsaService implements ManufacturedRecordInterface
         return $this->query;
     }
 
-    public function findByAttributes(ManufacturedAttributesInterface $routeParameters)
+    public function findByAttributes(ManufacturableAttributesInterface $parameters)
     {
         try {
             $response = $this->getClient()->request(
                 'GET',
-                $this->formatRouterParameters($routeParameters),
+                $this->formatRouterParameters($parameters),
                 $this->getQuery()
             );
         } catch (\Exception $e) {
@@ -46,8 +46,9 @@ class NhtsaService implements ManufacturedRecordInterface
             return [];
         }
 
-        $result = $this->formatResult($response);
-        if (!$routeParameters->isClassifiable()) {
+        $body = json_decode($response->getBody(), true);
+        $result = $this->formatResult($body, $parameters);
+        if (!$parameters->isClassifiable()) {
             return $result;
         }
 
@@ -93,32 +94,35 @@ class NhtsaService implements ManufacturedRecordInterface
         return !empty($body['Results']);
     }
 
-    protected function formatResult($response)
+    protected function formatResult($body, ManufacturableAttributesInterface $parameters)
     {
-        $body = json_decode($response->getBody(), true);
         $result = [];
+        $baseResult = [
+            'modelYear' => $parameters->getModelYear(),
+            'manufacturer' => $parameters->getManufacturer(),
+            'model' => $parameters->getModel(),
+            'isClassifiable' => $parameters->isClassifiable(),
+            'CrashRating' => '',
+        ];
 
         foreach ($body['Results'] as $itemKey => $item) {
-            foreach ($item as $key => $value) {
-                $newKey = str_replace('VehicleDescription', 'Description', $key);
-                $result[$itemKey][$newKey] = $value;
-            }
+            $result[] = array_merge($baseResult, $item);
         }
 
         return $result;
     }
 
-    protected function formatRouterParameters(ManufacturedAttributesInterface $routeParameters)
+    protected function formatRouterParameters(ManufacturableAttributesInterface $parameters)
     {
         return implode(
             '/',
             [
                 'modelyear',
-                $routeParameters->getModelYear(),
+                $parameters->getModelYear(),
                 'make',
-                $routeParameters->getManufacturer(),
+                $parameters->getManufacturer(),
                 'model',
-                $routeParameters->getModel(),
+                $parameters->getModel(),
             ]
         );
     }

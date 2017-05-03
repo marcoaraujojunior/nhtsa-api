@@ -12,7 +12,7 @@ use GuzzleHttp\Exception\RequestException;
 use Symfony\Component\HttpFoundation\Response as BaseResponse;
 
 use App\Infrastructure\Service\NhtsaService;
-use App\Domain\Contracts\ManufacturedAttributesInterface;
+use App\Domain\Contracts\ManufacturableAttributesInterface;
 
 class NhsaServiceTest extends \TestCase
 {
@@ -27,17 +27,24 @@ class NhsaServiceTest extends \TestCase
 
         $service = new NhtsaService($client);
 
-        $vehicle = Mockery::mock('App\Domain\Contracts\ManufacturedAttributesInterface');
+        $vehicle = Mockery::mock('App\Domain\Contracts\ManufacturableAttributesInterface');
         $vehicle->shouldReceive('getModelYear')->andReturn(2015)->mock();
         $vehicle->shouldReceive('getManufacturer')->andReturn('Audi')->mock();
         $vehicle->shouldReceive('getModel')->andReturn('A3')->mock();
         $vehicle->shouldReceive('isClassifiable')->andReturn(false)->mock();
 
+        $baseExpected = [
+            'modelYear' => 2015,
+            'manufacturer' => 'Audi',
+            'model' => 'A3',
+            'isClassifiable' => false,
+            'CrashRating' => '',
+        ];
         $expected = [
-            [ 'Description' => '2015 Audi A3 4 DR AWD', 'VehicleId' => 9403 ],
-            [ 'Description' => '2015 Audi A3 4 DR FWD', 'VehicleId' => 9408 ],
-            [ 'Description' => '2015 Audi A3 C AWD', 'VehicleId' => 9405 ],
-            [ 'Description' => '2015 Audi A3 C FWD', 'VehicleId' => 9406 ],
+            $baseExpected + [ 'VehicleDescription' => '2015 Audi A3 4 DR AWD', 'VehicleId' => 9403 ],
+            $baseExpected + [ 'VehicleDescription' => '2015 Audi A3 4 DR FWD', 'VehicleId' => 9408 ],
+            $baseExpected + [ 'VehicleDescription' => '2015 Audi A3 C AWD', 'VehicleId' => 9405 ],
+            $baseExpected + [ 'VehicleDescription' => '2015 Audi A3 C FWD', 'VehicleId' => 9406 ],
         ];
 
         $this->assertEquals(
@@ -60,17 +67,24 @@ class NhsaServiceTest extends \TestCase
 
         $service = new NhtsaService($client);
 
-        $vehicle = Mockery::mock('App\Domain\Contracts\ManufacturedAttributesInterface');
+        $vehicle = Mockery::mock('App\Domain\Contracts\ManufacturableAttributesInterface');
         $vehicle->shouldReceive('getModelYear')->andReturn(2015)->mock();
         $vehicle->shouldReceive('getManufacturer')->andReturn('Audi')->mock();
         $vehicle->shouldReceive('getModel')->andReturn('A3')->mock();
         $vehicle->shouldReceive('isClassifiable')->andReturn(true)->mock();
 
+        $baseExpected = [
+            'modelYear' => 2015,
+            'manufacturer' => 'Audi',
+            'model' => 'A3',
+            'isClassifiable' => true,
+        ];
+
         $expected = [
-            [ 'Description' => '2015 Audi A3 4 DR AWD', 'VehicleId' => 9403, 'CrashRating' => '5' ],
-            [ 'Description' => '2015 Audi A3 4 DR FWD', 'VehicleId' => 9408, 'CrashRating' => '5' ],
-            [ 'Description' => '2015 Audi A3 C AWD', 'VehicleId' => 9405, 'CrashRating' => 'Not Rated' ],
-            [ 'Description' => '2015 Audi A3 C FWD', 'VehicleId' => 9406, 'CrashRating' => 'Not Rated' ],
+            $baseExpected + [ 'VehicleDescription' => '2015 Audi A3 4 DR AWD', 'VehicleId' => 9403, 'CrashRating' => '5' ],
+            $baseExpected + [ 'VehicleDescription' => '2015 Audi A3 4 DR FWD', 'VehicleId' => 9408, 'CrashRating' => '5' ],
+            $baseExpected + [ 'VehicleDescription' => '2015 Audi A3 C AWD', 'VehicleId' => 9405, 'CrashRating' => 'Not Rated' ],
+            $baseExpected + [ 'VehicleDescription' => '2015 Audi A3 C FWD', 'VehicleId' => 9406, 'CrashRating' => 'Not Rated' ],
         ];
 
         $this->assertEquals(
@@ -93,17 +107,24 @@ class NhsaServiceTest extends \TestCase
 
         $service = new NhtsaService($client);
 
-        $vehicle = Mockery::mock('App\Domain\Contracts\ManufacturedAttributesInterface');
+        $vehicle = Mockery::mock('App\Domain\Contracts\ManufacturableAttributesInterface');
         $vehicle->shouldReceive('getModelYear')->andReturn(2015)->mock();
         $vehicle->shouldReceive('getManufacturer')->andReturn('Audi')->mock();
         $vehicle->shouldReceive('getModel')->andReturn('A3')->mock();
         $vehicle->shouldReceive('isClassifiable')->andReturn(true)->mock();
 
+        $baseExpected = [
+            'modelYear' => 2015,
+            'manufacturer' => 'Audi',
+            'model' => 'A3',
+            'isClassifiable' => true,
+            'CrashRating' => '',
+        ];
         $expected = [
-            [ 'Description' => '2015 Audi A3 4 DR AWD', 'VehicleId' => 9403, 'CrashRating' => '' ],
-            [ 'Description' => '2015 Audi A3 4 DR FWD', 'VehicleId' => 9408, 'CrashRating' => '' ],
-            [ 'Description' => '2015 Audi A3 C AWD', 'VehicleId' => 9405, 'CrashRating' => '' ],
-            [ 'Description' => '2015 Audi A3 C FWD', 'VehicleId' => 9406, 'CrashRating' => '' ],
+            $baseExpected + [ 'VehicleDescription' => '2015 Audi A3 4 DR AWD', 'VehicleId' => 9403 ],
+            $baseExpected + [ 'VehicleDescription' => '2015 Audi A3 4 DR FWD', 'VehicleId' => 9408 ],
+            $baseExpected + [ 'VehicleDescription' => '2015 Audi A3 C AWD', 'VehicleId' => 9405 ],
+            $baseExpected + [ 'VehicleDescription' => '2015 Audi A3 C FWD', 'VehicleId' => 9406 ],
         ];
 
         $this->assertEquals(
@@ -126,17 +147,24 @@ class NhsaServiceTest extends \TestCase
 
         $service = new NhtsaService($client);
 
-        $vehicle = Mockery::mock('App\Domain\Contracts\ManufacturedAttributesInterface');
+        $vehicle = Mockery::mock('App\Domain\Contracts\ManufacturableAttributesInterface');
         $vehicle->shouldReceive('getModelYear')->andReturn(2015)->mock();
         $vehicle->shouldReceive('getManufacturer')->andReturn('Audi')->mock();
         $vehicle->shouldReceive('getModel')->andReturn('A3')->mock();
         $vehicle->shouldReceive('isClassifiable')->andReturn(true)->mock();
 
+        $baseExpected = [
+            'modelYear' => 2015,
+            'manufacturer' => 'Audi',
+            'model' => 'A3',
+            'isClassifiable' => true,
+            'CrashRating' => '',
+        ];
         $expected = [
-            [ 'Description' => '2015 Audi A3 4 DR AWD', 'VehicleId' => 9403, 'CrashRating' => '' ],
-            [ 'Description' => '2015 Audi A3 4 DR FWD', 'VehicleId' => 9408, 'CrashRating' => '' ],
-            [ 'Description' => '2015 Audi A3 C AWD', 'VehicleId' => 9405, 'CrashRating' => '' ],
-            [ 'Description' => '2015 Audi A3 C FWD', 'VehicleId' => 9406, 'CrashRating' => '' ],
+            $baseExpected + [ 'VehicleDescription' => '2015 Audi A3 4 DR AWD', 'VehicleId' => 9403 ],
+            $baseExpected + [ 'VehicleDescription' => '2015 Audi A3 4 DR FWD', 'VehicleId' => 9408 ],
+            $baseExpected + [ 'VehicleDescription' => '2015 Audi A3 C AWD', 'VehicleId' => 9405 ],
+            $baseExpected + [ 'VehicleDescription' => '2015 Audi A3 C FWD', 'VehicleId' => 9406 ],
         ];
 
         $this->assertEquals(
@@ -155,7 +183,7 @@ class NhsaServiceTest extends \TestCase
 
         $service = new NhtsaService($client);
 
-        $vehicle = Mockery::mock('App\Domain\Contracts\ManufacturedAttributesInterface');
+        $vehicle = Mockery::mock('App\Domain\Contracts\ManufacturableAttributesInterface');
         $vehicle->shouldReceive('getModelYear')->andReturn(2015)->mock();
         $vehicle->shouldReceive('getManufacturer')->andReturn('Audi')->mock();
         $vehicle->shouldReceive('getModel')->andReturn('A3')->mock();
@@ -177,7 +205,7 @@ class NhsaServiceTest extends \TestCase
 
         $service = new NhtsaService($client);
 
-        $vehicle = Mockery::mock('App\Domain\Contracts\ManufacturedAttributesInterface');
+        $vehicle = Mockery::mock('App\Domain\Contracts\ManufacturableAttributesInterface');
         $vehicle->shouldReceive('getModelYear')->andReturn(2015)->mock();
         $vehicle->shouldReceive('getManufacturer')->andReturn('Audi')->mock();
         $vehicle->shouldReceive('getModel')->andReturn('A3')->mock();
@@ -199,7 +227,7 @@ class NhsaServiceTest extends \TestCase
 
         $service = new NhtsaService($client);
 
-        $vehicle = Mockery::mock('App\Domain\Contracts\ManufacturedAttributesInterface');
+        $vehicle = Mockery::mock('App\Domain\Contracts\ManufacturableAttributesInterface');
         $vehicle->shouldReceive('getModelYear')->andReturn(2015)->mock();
         $vehicle->shouldReceive('getManufacturer')->andReturn('Audi')->mock();
         $vehicle->shouldReceive('getModel')->andReturn('A3')->mock();
@@ -212,8 +240,28 @@ class NhsaServiceTest extends \TestCase
 
     protected function successfulResult()
     {
-        return '{"Count":4,"Message":"Results returned successfully","Results":[{"VehicleDescription":"2015 Audi A3 4 DR AWD","VehicleId":9403},{"VehicleDescription":"2015 Audi A3 4 DR FWD","VehicleId":9408},{"VehicleDescription":"2015 Audi A3 C AWD","VehicleId":9405},{"VehicleDescription":"2015 Audi A3 C FWD","VehicleId":9406}]}';
+        return json_encode([
+            'Count' => 4,
+            'Message' => 'Results returned successfully',
+            'Results' => [
+                [
+                    'VehicleDescription' => '2015 Audi A3 4 DR AWD',
+                    'VehicleId' => 9403,
+                ],
+                [
+                    'VehicleDescription' => '2015 Audi A3 4 DR FWD',
+                    'VehicleId' => 9408,
+                ],
+                [
+                    'VehicleDescription' => '2015 Audi A3 C AWD',
+                    'VehicleId' => 9405,
+                ],
+                [
+                    'VehicleDescription' => '2015 Audi A3 C FWD',
+                    'VehicleId' => 9406,
+                ],
+            ]
+        ]);
     }
-
 }
 
