@@ -7,7 +7,7 @@ use Laravel\Lumen\Http\ResponseFactory;
 use Symfony\Component\HttpFoundation\Response as BaseResponse;
 
 use App\Domain\Contracts\ManufacturedRepositoryInterface as Repository;
-use App\Domain\Contracts\ManufacturedRequestedAttributesInterface as Manufactured;
+use App\Domain\Contracts\ManufacturedAttributesInterface as Manufactured;
 
 class VehiclesController extends Controller
 {

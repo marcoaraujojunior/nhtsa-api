@@ -2,7 +2,7 @@
 
 namespace App\Domain\Contracts;
 
-interface ManufacturedRequestedAttributesInterface
+interface ManufacturedAttributesInterface
 {
     /**
      * @param int $year
@@ -23,12 +23,6 @@ interface ManufacturedRequestedAttributesInterface
     public function setModel($model);
 
     /**
-     * @param bool $withRating
-     * @return $this
-     */
-    public function setWithRating($withRating);
-
-    /**
      * @return int
      */
     public function getModelYear();
@@ -42,9 +36,5 @@ interface ManufacturedRequestedAttributesInterface
      * @return string
      */
     public function getModel();
-
-    /**
-     * @return bool
-     */
-    public function withRating();
 }
+

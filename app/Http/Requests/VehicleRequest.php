@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Domain\Contracts\ManufacturedRequestedAttributesInterface;
+use App\Domain\Contracts\ManufacturedAttributesInterface;
+use App\Domain\Contracts\ClassifierInterface;
 
-class VehicleRequest implements ManufacturedRequestedAttributesInterface
+class VehicleRequest implements ManufacturedAttributesInterface, ClassifierInterface
 {
     protected $modelYear = 0;
     protected $manufacturer = '';

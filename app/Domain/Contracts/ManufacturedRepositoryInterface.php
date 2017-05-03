@@ -7,6 +7,6 @@ interface ManufacturedRepositoryInterface
     /**
      * @return array
      */
-    public function findAll(ManufacturedRequestedAttributesInterface $manufactured);
+    public function findAll(ManufacturedAttributesInterface $manufactured);
 }
 
