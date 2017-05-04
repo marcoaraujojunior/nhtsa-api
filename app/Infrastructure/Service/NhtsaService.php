@@ -105,7 +105,7 @@ class NhtsaService implements ManufacturableRecordInterface
             'CrashRating' => '',
         ];
 
-        foreach ($body['Results'] as $itemKey => $item) {
+        foreach ($body['Results'] as $item) {
             $result[] = array_merge($baseResult, $item);
         }
 
