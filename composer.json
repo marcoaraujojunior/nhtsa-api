@@ -14,7 +14,8 @@
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "phpunit/phpunit": "~5.0",
-        "mockery/mockery": "~0.9"
+        "mockery/mockery": "~0.9",
+        "codacy/coverage": "dev-master"
     },
     "autoload": {
         "psr-4": {
@@ -31,6 +32,8 @@
         "swagger" : "swagger ./app/Http/ --output public/swagger --bootstrap bootstrap/app.php",
         "test" : "phpunit",
         "coverage" : "phpunit --coverage-html ./public/report",
+        "coverage-xml" : "phpunit --coverage-clover=coverage.xml",
+        "codacy" : "codacycoverage clover coverage.xml",
         "post-root-package-install": [
             "php -r \"copy('.env.example', '.env');\""
         ]

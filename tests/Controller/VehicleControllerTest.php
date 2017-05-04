@@ -13,7 +13,6 @@ use GuzzleHttp\Exception\RequestException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 use App\Domain\Service\NhtsaService;
-use App\Domain\Model\Vehicle\Vehicle;
 use App\Domain\Contracts\ManufacturableAttributesInterface;
 use App\Domain\Contracts\ManufacturableRecordInterface;
 
