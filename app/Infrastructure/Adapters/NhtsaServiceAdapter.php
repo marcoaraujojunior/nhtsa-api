@@ -16,10 +16,11 @@ class NhtsaServiceAdapter implements ManufacturableServiceAdapterInterface
     {
         $newSource = [];
         foreach ($source as $item) {
-            $newSource[] = ($manufacturable->newInstance())->setModel($item['model'])
+            $newSource[] = $manufacturable->newInstance()
                 ->setDescription($item['VehicleDescription'])
                 ->setModelYear($item['modelYear'])
                 ->setManufacturer($item['manufacturer'])
+                ->setModel($item['model'])
                 ->setClassifiable($item['isClassifiable'])
                 ->setRating($item['CrashRating'])
                 ->setId($item['VehicleId']);

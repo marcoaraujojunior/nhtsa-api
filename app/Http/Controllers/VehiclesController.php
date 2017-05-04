@@ -159,7 +159,8 @@ class VehiclesController extends Controller
 
     protected function doResponse($modelYear, $manufacturer, $model, $isClassifiable, $httpStatusCode = BaseResponse::HTTP_OK)
     {
-        $this->vehicle->setModelYear($modelYear)
+        $this->vehicle
+            ->setModelYear($modelYear)
             ->setManufacturer($manufacturer)
             ->setModel($model)
             ->setClassifiable($isClassifiable);
