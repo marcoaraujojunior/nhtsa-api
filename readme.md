@@ -4,7 +4,12 @@
 
 API built to consume response from  [`NHTSA original API`](https://one.nhtsa.gov/webapi/api/SafetyRatings/)
 
-# Installation
+## Dependencies
+- [git](https://git-scm.com): Distributed version control system.
+- [docker-compose](https://docs.docker.com/compose/): Compose is a tool for defining and running multi-container Docker applications.
+- [composer](https://getcomposer.org): Dependency Management for PHP.
+
+## Installation
 - First, you need clone the repository:
 ```git clone https://github.com/marcoaraujojunior/nhtsa-api.git```
 - Secondly, inside the repository directory copy the file .env.example to .env:
@@ -14,9 +19,9 @@ API built to consume response from  [`NHTSA original API`](https://one.nhtsa.gov
 - To conclude install composer third-party packages:
 ```docker-compose exec nhtsa-api composer install```
 
-# API Documentation:
+## API Documentation:
 To visualize and interact with the API’s resources go to
 http://localhost:8080/swagger/
 
-## License
+### License
 MIT
