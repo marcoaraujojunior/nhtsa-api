@@ -71,7 +71,21 @@ class VehicleControllerTest extends \TestCase
         ];
 
         $this->json('POST', '/vehicles', ['modelYear' => '2015', 'manufacturer' => 'Audi', 'model' => 'A3'])
-             ->seeJsonEquals($expected);
+            ->seeJsonEquals($expected)
+            ->assertResponseStatus(201);
+    }
+
+    public function testCreateShouldReturnBadRequestWhenInvalidInput()
+    {
+
+        $expected = [
+            'Counts' => 0,
+            'Results' => []
+        ];
+
+        $this->json('POST', '/vehicles', ['manufacturer' => 'Honda', 'model' => 'Accord'])
+            ->seeJsonEquals($expected)
+            ->assertResponseStatus(400);
     }
 }
 
