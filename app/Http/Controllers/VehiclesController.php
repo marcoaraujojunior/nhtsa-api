@@ -114,7 +114,8 @@ class VehiclesController extends Controller
     public function findAllByAttributes($modelYear, $manufacturer, $model, Request $request)
     {
         $isClassifiable = filter_var($request->get('withRating'), FILTER_VALIDATE_BOOLEAN);
-        return $this->doResponse($modelYear, $manufacturer, $model, $isClassifiable);
+        $data = $this->doResponse($modelYear, $manufacturer, $model, $isClassifiable);
+        return $this->response->json($data, BaseResponse::HTTP_OK);
     }
 
     /**
@@ -154,10 +155,15 @@ class VehiclesController extends Controller
         $manufacturer = $request->json()->get('manufacturer');
         $model = $request->json()->get('model');
 
-        return $this->doResponse($modelYear, $manufacturer, $model, false, BaseResponse::HTTP_CREATED);
+        $httpStatusCode = BaseResponse::HTTP_CREATED;
+        $data = $this->doResponse($modelYear, $manufacturer, $model, false);
+        if (empty($data['Results'])) {
+            $httpStatusCode = BaseResponse::HTTP_BAD_REQUEST;
+        }
+        return $this->response->json($data, $httpStatusCode);
     }
 
-    protected function doResponse($modelYear, $manufacturer, $model, $isClassifiable, $httpStatusCode = BaseResponse::HTTP_OK)
+    protected function doResponse($modelYear, $manufacturer, $model, $isClassifiable)
     {
         $this->vehicle
             ->setModelYear($modelYear)
@@ -166,9 +172,7 @@ class VehiclesController extends Controller
             ->setClassifiable($isClassifiable);
 
         $result = $this->repository->findAll($this->vehicle);
-        $data = $this->vehicleResponse->format($result);
-
-        return $this->response->json($data, $httpStatusCode);
+        return $this->vehicleResponse->format($result);
     }
 }
 
