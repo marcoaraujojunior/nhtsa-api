@@ -4,6 +4,6 @@ namespace App\Domain\Contracts;
 
 interface ManufacturableRecordInterface
 {
-    public function findByAttributes(ManufacturableAttributesInterface $parameters);
+    public function findAll(ManufacturableAttributesInterface $parameters);
 }
 

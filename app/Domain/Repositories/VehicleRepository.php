@@ -27,7 +27,7 @@ class VehicleRepository implements ManufacturableRepositoryInterface
 
     public function findAll(ManufacturableAttributesInterface $vehicle)
     {
-        $vehicles = $this->record->findByAttributes($vehicle);
+        $vehicles = $this->record->findAll($vehicle);
         return $this->adapter->toAdapter($vehicles, $this->vehicleEntity);
     }
 }

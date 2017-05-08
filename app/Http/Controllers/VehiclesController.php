@@ -39,7 +39,7 @@ class VehiclesController extends Controller
      * @SWG\Get(
      *     path="/vehicles/{year}/{manufacturer}/{model}",
      *     description="Returns list of vehicles",
-     *     operationId="vehicles.findAllByAttributes",
+     *     operationId="vehicles.findAll",
      *     produces={"application/json"},
      *     tags={"vehicles"},
      *     @SWG\Parameter(
@@ -47,21 +47,21 @@ class VehiclesController extends Controller
      *         in="path",
      *         description="The model year of vehicle",
      *         required=true,
-     *         type="integer"
+     *         type="integer",
      *     ),
      *     @SWG\Parameter(
      *         name="manufacturer",
      *         in="path",
      *         description="The manufacturer of vehicle",
      *         required=true,
-     *         type="string"
+     *         type="string",
      *     ),
      *     @SWG\Parameter(
      *         name="model",
      *         in="path",
      *         description="The model of vehicle",
      *         required=true,
-     *         type="string"
+     *         type="string",
      *     ),
      *     @SWG\Parameter(
      *         name="withRating",
@@ -69,7 +69,7 @@ class VehiclesController extends Controller
      *         description="Determines whether show crash rating",
      *         required=false,
      *         default=false,
-     *         type="boolean"
+     *         type="boolean",
      *     ),
      *     @SWG\Response(
      *         response=200,
@@ -111,7 +111,7 @@ class VehiclesController extends Controller
      *     )
      * )
      */
-    public function findAllByAttributes($modelYear, $manufacturer, $model, Request $request)
+    public function findAll($modelYear, $manufacturer, $model, Request $request)
     {
         $isClassifiable = filter_var($request->get('withRating'), FILTER_VALIDATE_BOOLEAN);
         $data = $this->doResponse($modelYear, $manufacturer, $model, $isClassifiable);
@@ -135,14 +135,17 @@ class VehiclesController extends Controller
      *       @SWG\Property(
      *          property="modelYear",
      *          type="integer",
+     *          example=2017,
      *       ),
      *       @SWG\Property(
      *          property="manufacturer",
      *          type="string",
+     *          example="volkswagen",
      *       ),
      *       @SWG\Property(
      *          property="model",
      *          type="string",
+     *          example="golf",
      *       ),
      *     )
      *   ),

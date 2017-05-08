@@ -12,11 +12,11 @@ use App\Domain\Contracts\ManufacturableServiceAdapterInterface;
 
 class VehicleRepositoryTest extends \TestCase
 {
-    public function testFindAllShouldReturnTheSameResultOfFindByAttributesResults()
+    public function testFindAllShouldReturnTheSameResultOfFindAllFromServiceResults()
     {
 
         $record = Mockery::mock('App\Domain\Contracts\ManufacturableRecordInterface');
-        $record->shouldReceive('findByAttributes')->andReturn(['the' => 'same'])->mock();
+        $record->shouldReceive('findAll')->andReturn(['the' => 'same'])->mock();
 
         $vehicle = Mockery::mock('App\Domain\Contracts\ManufacturableAttributesInterface');
 

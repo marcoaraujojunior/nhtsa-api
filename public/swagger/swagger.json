@@ -21,7 +21,7 @@
                 ],
                 "summary": "Display a listing of the vehicles by Model Year, Manufacturer and Model.",
                 "description": "Returns list of vehicles",
-                "operationId": "vehicles.findAllByAttributes",
+                "operationId": "vehicles.findAll",
                 "produces": [
                     "application/json"
                 ],
@@ -117,13 +117,16 @@
                         "schema": {
                             "properties": {
                                 "modelYear": {
-                                    "type": "integer"
+                                    "type": "integer",
+                                    "example": 2017
                                 },
                                 "manufacturer": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "example": "volkswagen"
                                 },
                                 "model": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "example": "golf"
                                 }
                             },
                             "type": "object"

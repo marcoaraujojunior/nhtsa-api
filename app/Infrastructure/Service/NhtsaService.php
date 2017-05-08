@@ -30,7 +30,7 @@ class NhtsaService implements ManufacturableRecordInterface
         return $this->query;
     }
 
-    public function findByAttributes(ManufacturableAttributesInterface $parameters)
+    public function findAll(ManufacturableAttributesInterface $parameters)
     {
         try {
             $response = $this->getClient()->request(
@@ -103,6 +103,8 @@ class NhtsaService implements ManufacturableRecordInterface
             'model' => $parameters->getModel(),
             'isClassifiable' => $parameters->isClassifiable(),
             'CrashRating' => '',
+            'VehicleDescription' => '',
+            'VehicleId' => 0,
         ];
 
         foreach ($body['Results'] as $item) {

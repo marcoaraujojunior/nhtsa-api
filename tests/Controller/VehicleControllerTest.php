@@ -19,7 +19,7 @@ use App\Domain\Contracts\ManufacturableRecordInterface;
 class VehicleControllerTest extends \TestCase
 {
 
-    public function testFindAllByAttributesShouldReturnCountAndResults()
+    public function testFindAllShouldReturnCountAndResults()
     {
         $this->get('/vehicles/2015/Audi/A3');
 
@@ -38,7 +38,7 @@ class VehicleControllerTest extends \TestCase
         );
     }
 
-    public function testFindAllByAttributesShouldReturnCountAndResultsWithRating()
+    public function testFindAllShouldReturnCountAndResultsWithRating()
     {
         $this->get('/vehicles/2015/Audi/A3?withRating=true');
 
@@ -57,7 +57,7 @@ class VehicleControllerTest extends \TestCase
         );
     }
 
-    public function testCreateShouldFakeSaveAndReturnFindAllByAttributesResults()
+    public function testCreateShouldFakeSaveAndReturnFindAllResults()
     {
 
         $expected = [

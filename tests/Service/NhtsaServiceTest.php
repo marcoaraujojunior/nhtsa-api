@@ -14,9 +14,9 @@ use Symfony\Component\HttpFoundation\Response as BaseResponse;
 use App\Infrastructure\Service\NhtsaService;
 use App\Domain\Contracts\ManufacturableAttributesInterface;
 
-class NhsaServiceTest extends \TestCase
+class NhtsaServiceTest extends \TestCase
 {
-    public function testFindByAttributesShouldReturnValidArrayWithoutRatingWhenSuccessfulRequestAndWithRatingIsFalse()
+    public function testFindAllShouldReturnValidArrayWithoutRatingWhenSuccessfulRequestAndWithRatingIsFalse()
     {
         $mock = new MockHandler([
             new Response(BaseResponse::HTTP_OK, [], $this->successfulResult()),
@@ -48,11 +48,11 @@ class NhsaServiceTest extends \TestCase
         ];
 
         $this->assertEquals(
-            $expected, $service->findByAttributes($vehicle)
+            $expected, $service->findAll($vehicle)
         );
     }
 
-    public function testFindByAttributesShouldReturnValidArrayWithRatingWhenSuccessfulRequestAndWithRatingIsTrue()
+    public function testFindAllShouldReturnValidArrayWithRatingWhenSuccessfulRequestAndWithRatingIsTrue()
     {
         $mock = new MockHandler([
             new Response(BaseResponse::HTTP_OK, [], $this->successfulResult()),
@@ -88,11 +88,11 @@ class NhsaServiceTest extends \TestCase
         ];
 
         $this->assertEquals(
-            $expected, $service->findByAttributes($vehicle)
+            $expected, $service->findAll($vehicle)
         );
     }
 
-    public function testFindByAttributesShouldReturnValidArrayWithEmptyRatingWhenEmptyResponseFromRatingAndWithRatingIsTrue()
+    public function testFindAllShouldReturnValidArrayWithEmptyRatingWhenEmptyResponseFromRatingAndWithRatingIsTrue()
     {
         $mock = new MockHandler([
             new Response(BaseResponse::HTTP_OK, [], $this->successfulResult()),
@@ -128,11 +128,11 @@ class NhsaServiceTest extends \TestCase
         ];
 
         $this->assertEquals(
-            $expected, $service->findByAttributes($vehicle)
+            $expected, $service->findAll($vehicle)
         );
     }
 
-    public function testFindByAttributesShouldReturnValidArrayWithEmptyRatingWhenRequestToRatingFailAndWithRatingIsTrue()
+    public function testFindAllShouldReturnValidArrayWithEmptyRatingWhenRequestToRatingFailAndWithRatingIsTrue()
     {
         $mock = new MockHandler([
             new Response(BaseResponse::HTTP_OK, [], $this->successfulResult()),
@@ -168,11 +168,11 @@ class NhsaServiceTest extends \TestCase
         ];
 
         $this->assertEquals(
-            $expected, $service->findByAttributes($vehicle)
+            $expected, $service->findAll($vehicle)
         );
     }
 
-    public function testFindByAttributesShouldReturnEmptyArrayWhenRequestException()
+    public function testFindAllShouldReturnEmptyArrayWhenRequestException()
     {
         $mock = new MockHandler([
             new RequestException("Error Communicating with Server", new Request('GET', 'test')),
@@ -190,11 +190,11 @@ class NhsaServiceTest extends \TestCase
         $vehicle->shouldReceive('isClassifiable')->andReturn(false)->mock();
 
         $this->assertEquals(
-            [], $service->findByAttributes($vehicle)
+            [], $service->findAll($vehicle)
         );
     }
 
-    public function testFindByAttributesShouldReturnEmptyArrayWhenResponseStatusCodeIsNotTwoHundred()
+    public function testFindAllShouldReturnEmptyArrayWhenResponseStatusCodeIsNotTwoHundred()
     {
         $mock = new MockHandler([
             new Response(BaseResponse::HTTP_NO_CONTENT, []),
@@ -212,11 +212,11 @@ class NhsaServiceTest extends \TestCase
         $vehicle->shouldReceive('isClassifiable')->andReturn(false)->mock();
 
         $this->assertEquals(
-            [], $service->findByAttributes($vehicle)
+            [], $service->findAll($vehicle)
         );
     }
 
-    public function testFindByAttributesShouldReturnEmptyArrayWhenEmptyResults()
+    public function testFindAllShouldReturnEmptyArrayWhenEmptyResults()
     {
         $mock = new MockHandler([
             new Response(BaseResponse::HTTP_OK, []),
@@ -234,7 +234,7 @@ class NhsaServiceTest extends \TestCase
         $vehicle->shouldReceive('isClassifiable')->andReturn(false)->mock();
 
         $this->assertEquals(
-            [], $service->findByAttributes($vehicle)
+            [], $service->findAll($vehicle)
         );
     }
 
