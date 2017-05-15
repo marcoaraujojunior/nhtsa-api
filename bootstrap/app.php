@@ -54,10 +54,27 @@ $app->singleton(
     App\Console\Kernel::class
 );
 
+
 $app->singleton(
     GuzzleHttp\Client::class,
     function ($app) {
-        return new GuzzleHttp\Client(['base_uri' => env('RESOURCE_BASE_URI', null)]);
+
+        $stack = GuzzleHttp\HandlerStack::create();
+        $stack->push(
+            GuzzleHttp\Middleware::log(
+                with(new \Monolog\Logger('api-consumer'))->pushHandler(
+                    new \Monolog\Handler\RotatingFileHandler(storage_path('logs/api-consumer.log'))
+                ),
+                new GuzzleHttp\MessageFormatter(
+                    '{method} {uri} HTTP/{version} {req_body} RESPONSE: {code}'
+                )
+            )
+        );
+
+        return new GuzzleHttp\Client([
+            'base_uri' => env('RESOURCE_BASE_URI', null),
+            'handler' => $stack,
+        ]);
     }
 );
 
