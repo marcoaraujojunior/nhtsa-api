@@ -36,6 +36,9 @@
         "codacy" : "codacycoverage clover coverage.xml",
         "post-root-package-install": [
             "php -r \"copy('.env.example', '.env');\""
+        ],
+        "post-install-cmd": [
+            "chmod 777 storage/ -R"
         ]
     },
     "minimum-stability": "dev",
